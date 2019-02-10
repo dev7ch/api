@@ -1,0 +1,24 @@
+{
+  "name": "draggable-tree",
+  "version": "1.0.0",
+  "description": "Directus extension to build nested tree tress by dragging",
+  "main": "index.js",
+  "repository": "https://github.com/dev7ch/api",
+  "author": "Silvan Hahn <silvan@dev7.ch>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/preset-react": "^7.0.0",
+    "vue-draggable-nested-tree": "^2.2.5"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  }
+}
