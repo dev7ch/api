@@ -159,6 +159,7 @@ export default {
         asc: true
       },
 
+
       selectExisting: false,
       selectionSaving: false,
       selection: [],
@@ -204,7 +205,8 @@ export default {
       return this.options.fields.split(",").map(val => val.trim());
     },
     items() {
-      if (this.relationSetup === false) return [];
+
+      //if (this.relationSetup === false) return [];
 
       return this.$lodash.orderBy(
         (this.value || []).filter(val => !val.$delete),
@@ -307,6 +309,7 @@ export default {
       };
     },
     setSelection() {
+        console.log(this.value)
       if (!this.value) return;
       this.selection = this.value.filter(val => !val.$delete);
     },
@@ -321,6 +324,7 @@ export default {
       return;
     },
     saveSelection() {
+
       this.selectionSaving = true;
 
       const savedRelatedPKs = (this.value || [])
@@ -371,6 +375,7 @@ export default {
       this.selectExisting = false;
     },
     stageValue({ field, value }) {
+        console.log(field)
       this.$set(this.edits, field, value);
     },
     saveEdits() {
@@ -382,8 +387,7 @@ export default {
               ...this.edits
             };
           }
-
-          return val;
+            return val;
         })
       ]);
 
@@ -419,12 +423,23 @@ export default {
           })
         );
       }
+        console.log(item)
     },
     onSearchInput(value) {
       this.setViewQuery({
         q: value
       });
     }
+  },
+
+    beforeUpdate() {
+        console.log('Items', this.items)
+        console.log('Selection', this.selection)
+    },
+
+  mounted() {
+      console.log('API values', this.values)
+     console.log('From API:',  this.selection)
   }
 };
 </script>
