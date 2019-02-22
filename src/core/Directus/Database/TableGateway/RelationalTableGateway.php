@@ -1000,6 +1000,11 @@ class RelationalTableGateway extends BaseTableGateway
             array_unshift($selectedFields, $statusField->getName());
         }
 
+        // NOTE: Make sure to have the `type` field for files to determine if the supports thumbnails
+        if ($this->table == SchemaManager::COLLECTION_FILES && !in_array('type', $selectedFields)) {
+            $selectedFields[] = 'type';
+        }
+
         $builder->columns($selectedFields);
 
         $builder = $this->applyParamsToTableEntriesSelect(
@@ -1564,7 +1569,7 @@ class RelationalTableGateway extends BaseTableGateway
                 throw new Exception\InvalidFieldException($column);
             }
 
-            if ($field->isAlias()) {
+            if ($field && $field->isAlias()) {
                 throw new Exception\UnableSortAliasFieldException($orderBy);
             }
 
