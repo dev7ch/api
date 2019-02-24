@@ -3,33 +3,21 @@
     <span class="no-wrap">{{ displayValue }}</span>
     <h2>Max Level</h2>
     <input v-model="maxLevel" type="number" />
-    <DraggableTree
-      :data="originalData"
-      draggable
-      crossTree
-      ref="tree1"
-      @drag="ondrag"
-    >
-      <!--<div slot-scope="{ data, store }">-->
-        <!--<b-->
-          <!--v-if="data.children && data.children.length"-->
-          <!--@click="store.toggleOpen(data)"-->
-        <!--&gt;-->
-          <!--{{ data.open ? "-" : "+" }}&nbsp;</b-->
-        <!--&gt;-->
-        <!--<span> {{ data.text }}-droppable:{{ data.droppable }}</span>-->
-      <!--</div>-->
-    </DraggableTree>
+
   </div>
 </template>
 
 <script>
 import mixin from "../../../mixins/interface";
-import {DraggableTree}  from "./node_modules/vue-draggable-nested-tree/dist/vue-draggable-nested-tree.min";
+
+
+//import DraggableTree  from "vue-draggable-nested-tree/src/components/DraggableTree";
 
 export default {
+    name: 'DraggableTree',
   components: {
-    DraggableTree
+    DraggableTree,
+    Store
   },
   mixins: [mixin],
   computed: {
@@ -38,49 +26,7 @@ export default {
       return this.$helpers.formatTitle(this.value);
     }
   },
-  // data() {
-  //   return {
-  //     originalData: [
-  //       { text: "node 1" },
-  //       { text: "node 2" },
-  //       { text: "node 3" },
-  //       { text: "node 4" },
-  //       { text: "node 4 undroppable", droppable: false },
-  //       {
-  //         text: "node 5",
-  //         children: [
-  //           { text: "node 1" },
-  //           {
-  //             text: "node 2",
-  //             children: [{ text: "node 3" }, { text: "node 4" }]
-  //           },
-  //           {
-  //             text: "node 2 undroppable",
-  //             droppable: false,
-  //             children: [{ text: "node 3" }, { text: "node 4" }]
-  //           },
-  //           {
-  //             text: "node 2",
-  //             children: [
-  //               { text: "node 3" },
-  //               { text: "node 4 undroppable", droppable: false }
-  //             ]
-  //           },
-  //           { text: "node 3" },
-  //           { text: "node 4" },
-  //           { text: "node 3" },
-  //           { text: "node 4" },
-  //           { text: "node 3" },
-  //           { text: "node 4" },
-  //           { text: "node 3" },
-  //           { text: "node 4" }
-  //         ]
-  //       }
-  //     ],
-  //     data: null,
-  //     maxLevel: 2
-  //   };
-  // },
+
   methods: {
     ondrag(node) {
       const { maxLevel } = this;

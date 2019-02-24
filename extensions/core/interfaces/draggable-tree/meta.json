@@ -1,10 +1,10 @@
 {
-  "name": "$t:collections",
-  "version": "1.0.1",
+  "name": "$t:draggable-tree",
+  "version": "1.0.0",
   "types": ["string"],
-  "icon": "category",
+  "icon": "list_alt",
   "recommended": {
-    "length": 100
+    "length": 200
   },
   "options": {
     "placeholder": {
@@ -24,7 +24,7 @@
   },
   "translation": {
     "en-US": {
-      "collections": "Collections",
+      "draggable-tree": "Draggable Three",
       "placeholder": "Placeholder",
       "placeholder_comment": "Static text that shown before a value is selected",
       "placeholder_default": "Choose a collection",

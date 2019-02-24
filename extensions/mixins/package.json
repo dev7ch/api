@@ -12,6 +12,7 @@
   "author": "Rijk van Zanten <rijkvanzanten@me.com>",
   "license": "GPL-3.0",
   "devDependencies": {
-    "babel-core": "^6.26.3"
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1"
   }
 }
