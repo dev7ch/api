@@ -33,7 +33,7 @@
 
 <script>
 import mixin from "../../../mixins/interface";
-import DraggableTree  from "vue-draggable-nested-tree/src/components/DraggableTree";
+import {DraggableTree}  from "vue-draggable-nested-tree/dist/vue-draggable-nested-tree";
 
 export default {
   mixins: [mixin],

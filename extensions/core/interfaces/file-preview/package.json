@@ -12,6 +12,6 @@
     "cropperjs": "^1.4.2"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3"
+    "@babel/core": "^7.3.3"
   }
 }

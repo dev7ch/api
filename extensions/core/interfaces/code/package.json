@@ -10,9 +10,10 @@
   "license": "GPL-3.0",
   "dependencies": {
     "codemirror": "^5.39.0",
-    "vue-codemirror": "^4.0.5"
+    "vue-codemirror": "^4.0.5",
+    "vue-hot-reload-api": "^2.3.3"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3"
+    "@babel/core": "^7.3.3"
   }
 }
