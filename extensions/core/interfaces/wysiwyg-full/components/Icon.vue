@@ -1,15 +1,16 @@
 <template>
     <div class="icon" :class="[`icon--${name}`, `icon--${size}`, { 'has-align-fix': fixAlign }]">
-        <svg class="icon__svg">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="'#icon--' + name"></use>
-        </svg>
+        <i class="material-icons editor-icon">{{name}}</i>
     </div>
 </template>
 
 <script>
     export default {
         props: {
-            name: {},
+            name: {
+                type: String,
+                required: true
+            },
             size: {
                 default: 'normal',
             },
@@ -20,23 +21,33 @@
                 default: true,
             },
         },
+
+        data() {
+            return {
+                svg: ''
+            };
+        },
     }
 </script>
 
 <style lang="scss" scoped>
+    .editor-icon {
+        width: 20px;
+        height: 20px;
+    }
     .icon {
         position: relative;
         display: inline-block;
         vertical-align: middle;
-        width: 0.8rem;
-        height: 0.8rem;
+        width: 30px;
+        height: 30px;
         margin: 0 .3rem;
         top: -.05rem;
         fill: currentColor;
 
-        // &.has-align-fix {
-        // 	top: -.1rem;
-        // }
+         &.has-align-fix {
+         	top: -.1rem;
+         }
 
         &__svg {
             display: inline-block;

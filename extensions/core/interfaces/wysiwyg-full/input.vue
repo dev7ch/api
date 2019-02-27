@@ -12,7 +12,7 @@
                         :class="{ 'is-active': isActive.bold() }"
                         @click="commands.bold"
                 >
-                    <icon name="bold"/>
+                    <icon name="format_bold"/>
                 </button>
 
                 <button
@@ -20,7 +20,7 @@
                         :class="{ 'is-active': isActive.italic() }"
                         @click="commands.italic"
                 >
-                    <icon name="italic"/>
+                    <icon name="format_italic"/>
                 </button>
 
                 <button
@@ -28,7 +28,7 @@
                         :class="{ 'is-active': isActive.strike() }"
                         @click="commands.strike"
                 >
-                    <icon name="strike"/>
+                    <icon name="format_strikethrough"/>
                 </button>
 
                 <button
@@ -36,7 +36,7 @@
                         :class="{ 'is-active': isActive.underline() }"
                         @click="commands.underline"
                 >
-                    <icon name="underline"/>
+                    <icon name="format_underline"/>
                 </button>
 
                 <button
@@ -52,7 +52,7 @@
                         :class="{ 'is-active': isActive.paragraph() }"
                         @click="commands.paragraph"
                 >
-                    <icon name="paragraph"/>
+                    <icon name="subject"/>
                 </button>
 
                 <button
@@ -60,7 +60,8 @@
                         :class="{ 'is-active': isActive.heading({ level: 1 }) }"
                         @click="commands.heading({ level: 1 })"
                 >
-                    H1
+                    <span>H1</span>
+                    <icon name="crop_square"/>
                 </button>
 
                 <button
@@ -68,7 +69,8 @@
                         :class="{ 'is-active': isActive.heading({ level: 2 }) }"
                         @click="commands.heading({ level: 2 })"
                 >
-                    H2
+                    <span>H2</span>
+                    <icon name="crop_square"/>
                 </button>
 
                 <button
@@ -76,7 +78,8 @@
                         :class="{ 'is-active': isActive.heading({ level: 3 }) }"
                         @click="commands.heading({ level: 3 })"
                 >
-                    H3
+                    <span>H3</span>
+                    <icon name="crop_square"/>
                 </button>
 
                 <button
@@ -84,7 +87,7 @@
                         :class="{ 'is-active': isActive.bullet_list() }"
                         @click="commands.bullet_list"
                 >
-                    <icon name="ul"/>
+                    <icon name="format_list_bulleted"/>
                 </button>
 
                 <button
@@ -92,7 +95,7 @@
                         :class="{ 'is-active': isActive.ordered_list() }"
                         @click="commands.ordered_list"
                 >
-                    <icon name="ol"/>
+                    <icon name="format_list_numbered"/>
                 </button>
 
                 <button
@@ -100,7 +103,8 @@
                         :class="{ 'is-active': isActive.blockquote() }"
                         @click="commands.blockquote"
                 >
-                    <icon name="quote"/>
+                    <icon name="format_quote"/>
+                    s
                 </button>
 
                 <button
@@ -118,38 +122,37 @@
                     <icon name="hr"/>
                 </button>
 
-                <button
-                        class="menubar__button"
-                        @click="commands.undo"
-                >
-                    <icon name="undo"/>
-                </button>
-
-                <button
-                        class="menubar__button"
-                        @click="commands.redo"
-                >
-                    <icon name="redo"/>
-                </button>
-
             </div>
         </editor-menu-bar>
-            <editor-content ref="editor" :class="['interface-wysiwyg', (readonly ? 'readonly' : '')]" :value="value" class="editor__content" :editor="editor"/>
+
+        <!--<template>-->
+        <!--<FileUpload type="file" name="editor" class="select"></FileUpload>-->
+        <!--</template>-->
+        <editor-content ref="editor" :class="['interface-wysiwyg', (readonly ? 'readonly' : '')]"
+                        class="editor__content" :editor="editor"/>
+
     </div>
 </template>
 
 <script>
-    import Icon from './components/icon'
+
+    import FileUpload from '../file/input'
+    import Icon from './Components/Icon'
     import {Editor, EditorContent, EditorMenuBar} from 'tiptap'
     import {
         Blockquote,
         CodeBlock,
         HardBreak,
         Heading,
+        Image,
         HorizontalRule,
         OrderedList,
         BulletList,
         ListItem,
+        Table,
+        TableHeader,
+        TableCell,
+        TableRow,
         TodoItem,
         TodoList,
         Bold,
@@ -169,70 +172,118 @@
         watch: {
             value(newVal) {
                 if (newVal) {
-                   console.log(this.editor.view.dom.innerHTML)
+                    console.log(this.editor.view.dom.innerHTML)
+
                     console.log(this)
                     console.log(this.value)
                     //return this.value.target.innerHTML
                 }
             },
-        },
 
-        methods: {
+            methods: {
 
-            init() {
-                this.editor = new Editor({
-                    extensions: [
-                        new Blockquote(),
-                        new BulletList(),
-                        new CodeBlock(),
-                        new HardBreak(),
-                        new Heading({levels: [1, 2, 3]}),
-                        new HorizontalRule(),
-                        new ListItem(),
-                        new OrderedList(),
-                        new TodoItem(),
-                        new TodoList(),
-                        new Bold(),
-                        new Code(),
-                        new Italic(),
-                        new Link(),
-                        new Strike(),
-                        new Underline(),
-                        new History(),
-                    ],
-                    content: "",
-                });
+                showImagePrompt(command) {
+                    this.fileUpload = !this.fileUpload
+                    let src = prompt(src);
+                    console.log(FileUpload)
+                    if (src !== null) {
+                        command({src})
+                    }
+                },
 
-                if (this.value) {
-                    this.editor.setContent(this.value);
+                init() {
+                    this.editor = new Editor({
+                        extensions: [
+                            new Blockquote(),
+                            new BulletList(),
+                            new CodeBlock(),
+                            new Image(),
+                            new HardBreak(),
+                            new Heading({levels: [1, 2, 3]}),
+                            new HorizontalRule(),
+                            new ListItem(),
+                            new OrderedList(),
+                            new Table(),
+                            new TableRow(),
+                            new TableHeader(),
+                            new TableCell(),
+                            new TodoItem(),
+                            new TodoList(),
+                            new Bold(),
+                            new Code(),
+                            new Italic(),
+                            new Link(),
+                            new Strike(),
+                            new Underline(),
+                            new History(),
+                        ],
+                        content: "",
+                    });
+
+                    if (this.value) {
+                        this.editor.setContent(this.value);
+                    }
+                },
+            },
+
+            components: {
+                EditorContent,
+                EditorMenuBar,
+                Icon
+            },
+
+            data() {
+                return {
+                    editor: null,
                 }
             },
-            destroy() {
-                this.editor.destroy();
+
+            mounted() {
+                this.init();
             },
-
-        },
-        components: {
-            EditorContent,
-            EditorMenuBar,
-            Icon
-        },
-
-        data() {
-            return {
-                editor: null,
-            }
-        },
-
-        mounted() {
-            this.init();
-        },
-        beforeDestroy() {
-            this.editor.destroy()
-        },
+            beforeDestroy() {
+                this.editor.destroy()
+            },
+        }
     }
 </script>
 
 <style lang="scss">
+    .editor {
+        .menubar__button {
+            position: relative;
+            span, i {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            span {
+                top: calc(50% + 1px);
+                left: calc(50% + 4px);
+                font-size: 8px;
+                letter-spacing: -1px;
+            }
+        }
+
+        .tableWrapper {
+            max-width: 100%;
+            overflow-x: auto;
+            table {
+
+                background-color: solid var(--lightest-gray) 1px;
+                border: solid var(--gray) 1px;
+                width: 100%;
+                tbody {
+
+                    tr, td {
+                        min-width: 70px;
+                        border: 1px solid black;
+                    }
+                }
+            }
+        }
+    }
 
 </style>

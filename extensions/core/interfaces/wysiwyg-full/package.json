@@ -12,10 +12,13 @@
   "author": "Silvan Hahn <silvan@dev7.ch>",
   "license": "GPL-3.0",
   "dependencies": {
+    "prosemirror": "^0.11.1",
+    "prosemirror-model": "^1.7.0",
     "prosemirror-utils": "^0.7.6",
     "tiptap": "^1.13.0",
     "tiptap-extensions": "^1.13.0",
-    "vue": "^2.6.7"
+    "vue": "^2.6.7",
+    "vue-template-compiler": "^2.6.7"
   },
   "devDependencies": {
     "babel-core": "^6.26.3"
