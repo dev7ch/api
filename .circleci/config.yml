@@ -56,7 +56,7 @@ jobs:
         - node-v1-{{ checksum "package.json" }}
         - node-v1-
     - run:
-        name: Wait for DB
+        name: Install Extensions and Build them ...
         command: cd extensions/ && yarn install && yarn build && cd ..
     - save_cache:
         key: node-v1-{{ checksum "package.json" }}
@@ -72,7 +72,7 @@ jobs:
     - run: mysql -uroot -e "create database directus_test;"
     - run: mysql -uroot directus_test < tests/db.sql
     - run: composer install
-    - run: bin/directus install:config -h "localhost" -P 3306 -n "directus_test" -u "root" -e "admin@example.com"
+    - run: bin/directus install:config -h "127.0.0.1" -P 3306 -n "directus_test" -u "root" -e "admin@example.com"
     - run: bin/directus install:database
     - run: bin/directus install:install -e "admin@example.com" -p "password" -t "directus_test" -T "TOKEN"
 
@@ -81,5 +81,5 @@ jobs:
 
     # run tests with phpunit or codecept
     #- run: ./vendor/bin/phpunit
-    - run: ./vendor/bin/codecept build
-    - run: ./vendor/bin/codecept run
+    # - run: ./vendor/bin/codecept build
+    # - run: ./vendor/bin/codecept run
