@@ -8,12 +8,12 @@ jobs:
     docker:
     # Specify the version you desire here
     - image: circleci/php:7.1-node-browsers
-        environment:
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_DB: directus_test
-          MYSQL_USER: root
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
-          MYSQL_PASSWORD:
+      environment:
+        MYSQL_HOST: 127.0.0.1
+        MYSQL_DB: directus_test
+        MYSQL_USER: root
+        MYSQL_ALLOW_EMPTY_PASSWORD: true
+        MYSQL_PASSWORD:
 
     # Specify service dependencies here if necessary
     # CircleCI maintains a library of pre-built images
@@ -24,10 +24,10 @@ jobs:
     #
     # - image: redis:2.8.19
     - image: mysql:5.7
-        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --innodb-large-prefix=true --innodb-file-format=Barracuda
-        environment:
-          MYSQL_USER: root
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
+      command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --innodb-large-prefix=true --innodb-file-format=Barracuda
+      environment:
+        MYSQL_USER: root
+        MYSQL_ALLOW_EMPTY_PASSWORD: true
 
     steps:
     - checkout
