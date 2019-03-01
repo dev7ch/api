@@ -9,6 +9,7 @@ jobs:
     # Specify the version you desire here
     - image: circleci/php:7.1-node-browsers
       environment:
+        MYSQL_HOST: 127.0.0.1
         MYSQL_DATABASE: circleci
         MYSQL_USER: root
         MYSQL_ALLOW_EMPTY_PASSWORD: true
