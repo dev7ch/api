@@ -10,11 +10,11 @@ jobs:
     - image: circleci/php:7.1-node-browsers
       environment:
         MYSQL_HOST: 127.0.0.1
-        MYSQL_DATABASE: circleci
         MYSQL_USER: root
+        MYSQL_ALLOW_EMPTY_ROOT_PASSWORD: true
         MYSQL_ALLOW_EMPTY_PASSWORD: true
-        MYSQL_PASSWORD: root
-        MYSQL_ROOT_PASSWORD: root
+        MYSQL_ROOT_PASSWORD: ''
+        MYSQL_DATABASE: directus_test
 
     # Specify service dependencies here if necessary
     # CircleCI maintains a library of pre-built images
