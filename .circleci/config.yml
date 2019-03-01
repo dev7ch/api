@@ -55,7 +55,7 @@ jobs:
         keys:
         - node-v1-{{ checksum "package.json" }}
         - node-v1-
-    - run: cd extensions/ && yarn install && yarn build
+    - run: cd extensions/ && yarn install && yarn build && cd ..
     - save_cache:
         key: node-v1-{{ checksum "package.json" }}
         paths:
@@ -67,6 +67,7 @@ jobs:
     - run:
         name: Wait for DB
         command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+    - run: mysql -uroot -e "create database circleci;"
     - run: mysql -uroot circleci < tests/db.sql
     - run: composer install
     - run: bin/directus install:config -h "localhost" -P 3306 -n "directus_test" -u "root" -e "admin@example.com"
