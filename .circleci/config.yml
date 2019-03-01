@@ -2,6 +2,18 @@
 #
 # Check https://circleci.com/docs/2.0/language-php/ for more details
 #
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+    - build
+    - deploy:
+        requires:
+        - build
+        filters:
+          branches:
+            only: circle-ci-test
 version: 2
 jobs:
   build:
@@ -84,3 +96,11 @@ jobs:
     #- run: ./vendor/bin/phpunit
     # - run: ./vendor/bin/codecept build
     # - run: ./vendor/bin/codecept run
+
+    deploy:
+      steps:
+      - checkout
+      - run:
+          name: Deploy brnach circle-ci-test to Heroku
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git circle-ci-test
