@@ -43,64 +43,64 @@ jobs:
         MYSQL_ALLOW_EMPTY_PASSWORD: true
 
     steps:
-    - checkout
-    - run: sudo apt install -y libpng-dev
-    - run: sudo apt install -y mysql-client
-    - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-    - run: sudo apt install zlib1g-dev
-    - run: sudo docker-php-ext-install mbstring zip gd exif pdo pdo_mysql fileinfo
+      - checkout
+      - run: sudo apt install -y libpng-dev
+      - run: sudo apt install -y mysql-client
+      - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
+      - run: sudo apt install zlib1g-dev
+      - run: sudo docker-php-ext-install mbstring zip gd exif pdo pdo_mysql fileinfo
 
-    # Download and cache dependencies
-    - restore_cache:
-        keys:
-        # "composer.lock" can be used if it is committed to the repo
-        - v1-dependencies-{{ checksum "composer.json" }}
-        # fallback to using the latest cache if no exact match is found
-        - v1-dependencies-
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          # "composer.lock" can be used if it is committed to the repo
+          - v1-dependencies-{{ checksum "composer.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
 
-    - run: composer install -n --prefer-dist
+      - run: composer install -n --prefer-dist
 
-    - save_cache:
-        key: v1-dependencies-{{ checksum "composer.json" }}
-        paths:
-        - ./vendor
-    - restore_cache:
-        keys:
-        - node-v1-{{ checksum "package.json" }}
-        - node-v1-
-    - run:
-        name: Install Extensions and Build them ...
-        command: cd extensions/ && yarn install && yarn build && cd ..
-    - save_cache:
-        key: node-v1-{{ checksum "package.json" }}
-        paths:
-        - node_modules
+      - save_cache:
+          key: v1-dependencies-{{ checksum "composer.json" }}
+          paths:
+          - ./vendor
+      - restore_cache:
+          keys:
+          - node-v1-{{ checksum "package.json" }}
+          - node-v1-
+      - run:
+          name: Install Extensions and Build them ...
+          command: cd extensions/ && yarn install && yarn build && cd ..
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}
+          paths:
+          - node_modules
 
-    # prepare the database
+      # prepare the database
 
-    - run: cp phpunit.xml.dist phpunit.xml
-    - run:
-        name: Wait for DB
-        command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
-    - run: mysql -uroot -e "create database directus_test;"
-    - run: mysql -uroot directus_test < tests/db.sql
-    - run: composer install
-    - run: bin/directus install:config -h "127.0.0.1" -P 3306 -n "directus_test" -u "root" -p "root" -e "admin@example.com"
-    - run: bin/directus install:database
-    - run: bin/directus install:install -e "admin@example.com" -p "password" -t "directus_test" -T "TOKEN"
+      - run: cp phpunit.xml.dist phpunit.xml
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+      - run: mysql -uroot -e "create database directus_test;"
+      - run: mysql -uroot directus_test < tests/db.sql
+      - run: composer install
+      - run: bin/directus install:config -h "127.0.0.1" -P 3306 -n "directus_test" -u "root" -e "admin@example.com"
+      - run: bin/directus install:database
+      - run: bin/directus install:install -e "admin@example.com" -p "password" -t "directus_test" -T "TOKEN"
 
-    #- run: touch storage/testing.sqlite
-    #- run: php artisan migrate --env=testing --database=sqlite_testing --force
+      #- run: touch storage/testing.sqlite
+      #- run: php artisan migrate --env=testing --database=sqlite_testing --force
 
-    # run tests with phpunit or codecept
-    #- run: ./vendor/bin/phpunit
-    # - run: ./vendor/bin/codecept build
-    # - run: ./vendor/bin/codecept run
+      # run tests with phpunit or codecept
+      #- run: ./vendor/bin/phpunit
+      # - run: ./vendor/bin/codecept build
+      # - run: ./vendor/bin/codecept run
 
     deploy:
       steps:
-      - checkout
-      - run:
-          name: Deploy brnach circle-ci-test to Heroku
-          command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git circle-ci-test
+        - checkout
+        - run:
+            name: Deploy circle-ci-test to Heroku
+            command: |
+              git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git circle-ci-test
