@@ -68,7 +68,7 @@ jobs:
       # prepare the database
 
       - run: cp phpunit.xml.dist phpunit.xml
-      - run: cp configs/api_sample.php configs/api.php
+      - run: cp config/api_sample.php config/api.php
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
