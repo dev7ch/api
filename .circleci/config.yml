@@ -9,11 +9,10 @@ jobs:
     # Specify the version you desire here
     - image: circleci/php:7.1-node-browsers
       environment:
-        MYSQL_HOST: 127.0.0.1
-        MYSQL_DB: directus_test
+        MYSQL_DATABASE: circleci
         MYSQL_USER: root
         MYSQL_ALLOW_EMPTY_PASSWORD: true
-        MYSQL_PASSWORD:
+        MYSQL_ROOT_PASSWORD: ''
 
     # Specify service dependencies here if necessary
     # CircleCI maintains a library of pre-built images
@@ -64,7 +63,10 @@ jobs:
     # prepare the database
 
     - run: cp phpunit.xml.dist phpunit.xml
-    - run: mysql -uroot directus_test < tests/db.sql
+    - run:
+        name: Wait for DB
+        command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+    - run: mysql -uroot circleci < tests/db.sql
     - run: composer install
     - run: bin/directus install:config -h "localhost" -P 3306 -n "directus_test" -u "root" -e "admin@example.com"
     - run: bin/directus install:database
