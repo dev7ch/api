@@ -1,0 +1,4 @@
+﻿id,title,user,role,collection,search_query,filters,view_type,view_query,view_options,translation
+1,,,,directus_activity,,,tabular,"{""tabular"":{""sort"":""-action_on"",""fields"":""action,action_by,action_on,collection,item""}}","{""tabular"":{""widths"":{""action"":170,""action_by"":170,""action_on"":180,""collection"":200,""item"":200}}}",
+2,,,,directus_files,,,cards,,"{""cards"":{""title"":""title"",""subtitle"":""type"",""content"":""description"",""src"":""data""}}",
+3,,,,directus_users,,,cards,,"{""cards"":{""title"":""first_name"",""subtitle"":""last_name"",""content"":""title"",""src"":""avatar"",""icon"":""person""}}",

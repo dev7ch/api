@@ -1,0 +1,15 @@
+﻿id,collection_many,field_many,collection_one,field_one,junction_field
+1,directus_activity,action_by,directus_users,,
+2,directus_activity_seen,user,directus_users,,
+3,directus_activity_seen,activity,directus_activity,,
+4,directus_collections_presets,user,directus_users,,
+5,directus_collections_presets,group,directus_groups,,
+6,directus_files,uploaded_by,directus_users,,
+7,directus_files,folder,directus_folders,,
+8,directus_folders,parent_folder,directus_folders,,
+9,directus_permissions,group,directus_groups,,
+10,directus_revisions,activity,directus_activity,,
+11,directus_user_roles,user,directus_users,roles,role
+12,directus_user_roles,role,directus_roles,users,user
+13,directus_users,avatar,directus_files,,
+14,directus_fields,collection,directus_collections,fields,

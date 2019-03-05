@@ -1,0 +1,2 @@
+﻿id,status,first_name,last_name,email,password,token,timezone,locale,locale_options,avatar,company,title,email_notifications,last_access_on,last_page,external_id
+1,active,Admin,User,admin@example.com,$2y$10$lAwHkMsNLeWdFq635RBuHO9GeIbfU09xa/jE8hJIi0X6ked2WM6Wm,,America/New_York,en-US,,,,,1,2019-01-18 23:19:56,/collections/items,

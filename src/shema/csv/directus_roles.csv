@@ -1,0 +1,3 @@
+﻿id,name,description,ip_whitelist,nav_blacklist,external_id
+1,Administrator,Admins have access to all managed data within the system by default,,,
+2,Public,This sets the data that is publicly available through the API without a token,,,
