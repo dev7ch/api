@@ -2,7 +2,7 @@
 
 return [
     'app' => [
-        'env' => 'production',
+        'env' => 'dev',
         'timezone' => 'America/New_York',
     ],
 
@@ -15,15 +15,19 @@ return [
     'database' => [
         'type' => 'mysql',
         'host' => 'localhost',
-        'port' => 3306,
-        'name' => 'directus',
+        'port' => 5432,
+        'name' => 'directus_iid',
         'username' => 'root',
         'password' => 'root',
-        'engine' => 'InnoDB',
+        //'engine' => 'InnoDB',
         'charset' => 'utf8mb4',
         // When using unix socket to connect to the database the host attribute should be removed
         // 'socket' => '/var/lib/mysql/mysql.sock',
-        'socket' => '',
+        'collation' => 'utf8_unicode_ci',
+        // When using unix socket to connect to the database the host attribute should be removed
+        // 'socket' => '/var/lib/mysql/mysql.sock',
+        'socket' => '/var/pgsql_socket/.s.PGSQL.5432',
+        //'socket' => '',
     ],
 
     'cache' => [
