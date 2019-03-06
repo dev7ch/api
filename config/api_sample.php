@@ -10,6 +10,21 @@ return [
         'logger' => [
             'path' => __DIR__ . '/logs/app.log',
         ],
+
+        // Try Eloquent
+        // Slim Settings
+//        'determineRouteBeforeAppMiddleware' => false,
+//        'displayErrorDetails' => true,
+//        'db' => [
+//            'type' => 'pgsql',
+//            'host' => '127.0.0.1',
+//            'database' => 'directus_iid',
+//            'username' => 'root',
+//            'password' => 'root',
+//            'charset' => 'utf8',
+//            'collation' => 'utf8_unicode_ci',
+//            'prefix' => '',
+//        ]
     ],
 
     'database' => [
