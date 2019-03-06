@@ -28,7 +28,7 @@ return [
     ],
 
     'database' => [
-        'type' => 'mysql',
+        'type' => 'pgsql',
         'host' => 'localhost',
         'port' => 5432,
         'name' => 'directus_iid',
