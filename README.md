@@ -5,7 +5,7 @@
 </p>
 
 
-### Mirrored into git@gitlab.fhnw.ch:hgk-dima/directus-api.git
+> Mirrored into `git@gitlab.fhnw.ch:hgk-dima/directus-api.git`
 
 <p>&nbsp;</p>
 
