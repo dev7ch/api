@@ -1,6 +1,8 @@
 <?php
 namespace Deployer;
 
+use function GuzzleHttp\Promise\task;
+
 require 'recipe/common.php';
 
 // Project name
@@ -16,8 +18,11 @@ set('keep_releases', 10);
 set('shared_dirs', []);
 
 // Writable dirs by web server
-set('writable_dirs', []);
-//set('shared_files', ['.htaccess', 'config/api.php']);
+set('writable_dirs', ['public/uploads', '/logs']);
+
+// Files and dirs to persist
+set('shared_files', ['.htaccess', 'config/api.php']);
+set('shared_dirs', ['public/uploads']);
 
 
 // Composer
@@ -77,7 +82,7 @@ host('dev')
 
 // Tasks
 
-desc('Deploying ...');
+desc('Deploying {{application}}');
 task('deploy', [
     'deploy:info',
     'deploy:prepare',
@@ -89,11 +94,22 @@ task('deploy', [
     'deploy:vendors',
     'deploy:clear_paths',
     'deploy:symlink',
+    'deploy:directus',
     'deploy:unlock',
     'cleanup',
     'success'
 ]);
 
+
+/**
+ * Directus settings and commands
+ */
+
+
+task('deploy:directus', function() {
+    // make dirs writable
+    run('chown -R www-data:www-data /var/www/html/{{application}}/current');
+});
 
 /**
  * Task: cleanup:deployefile
