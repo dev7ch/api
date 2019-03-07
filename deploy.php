@@ -27,33 +27,33 @@ set('shared_files', ['.htaccess', 'config/api.php']);
  * @todo check error   [Error] Class 'Dotenv\Environment\DotenvFactory' not found
  */
 
-//env('bin/composer', function () {
-//    if (commandExist('composer')) {
-//        $composer = run('which composer')->toString();
-//
-//        if (isVerbose()) {
-//            writeln("Use global installed composer: " . $composer);
-//        }
-//    }
-//    if (empty($composer)) {
-//        run("cd {{release_path}} && curl -sS https://getcomposer.org/installer | {{bin/php}}");
-//        $composer = '{{bin/php}} {{release_path}}/composer.phar';
-//    }
-//
-//    if (isVerbose()) {
-//        $version = run("cd {{release_path}} && ".$composer." -V");
-//        writeln("Composer version: " . $version);
-//    }
-//
-//    return $composer;
-//});
+set('bin/composer', function () {
+    if (commandExist('composer')) {
+        $composer = run('which composer')->toString();
+
+        if (isVerbose()) {
+            writeln("Use global installed composer: " . $composer);
+        }
+    }
+    if (empty($composer)) {
+        run("cd {{release_path}} && curl -sS https://getcomposer.org/installer | {{bin/php}}");
+        $composer = '{{bin/php}} {{release_path}}/composer.phar';
+    }
+
+    if (isVerbose()) {
+        $version = run("cd {{release_path}} && ".$composer." -V");
+        writeln("Composer version: " . $version);
+    }
+
+    return $composer;
+});
 
 
 /**
  * Override default composer option in order to provide ignore platform reqs flag.
  *
  */
-env('composer_options', function() {
+set('composer_options', function() {
     $args = null;
     if (has('ignorePlatformReqs')) {
         $args = ' --ignore-platform-reqs';
@@ -71,7 +71,7 @@ host('dev')
     // ->set('rsync_dest','{{release_path}}')
     ->user('root')
     ->port(22)
-    ->env('branch', 'llad')
+    ->set('branch', 'llad')
     //->configFile('~/.ssh/config')
     ->identityFile('~/.ssh/id_rsa')
     ->forwardAgent(true)

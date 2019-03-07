@@ -38,11 +38,11 @@
     "ext-exif": "*",
     "ext-mbstring": "*",
     "ext-openssl": "*",
-    "ext-gd": "*",
-    "deployer/deployer": "^6.4"
+    "ext-gd": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^5.7.25"
+    "phpunit/phpunit": "^5.7.25",
+    "deployer/dist": "^6.4"
   },
   "suggest": {
     "paragonie/random_compat": "Generates cryptographically more secure pseudo-random bytes",
