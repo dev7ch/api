@@ -7,7 +7,7 @@ require 'recipe/common.php';
 set('application', 'llad.ch'); // overwriting it at hosts
 
 // Project repository
-set('repository', 'git@github.com:dev7ch/api.git');
+set('repository', 'git@gitlab.fhnw.ch:hgk-dima/directus-api.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
