@@ -14,13 +14,12 @@ set('git_tty', true);
 set('keep_releases', 10);
 // Shared files/dirs between deploys
 set('shared_dirs', []);
+set('shared_files', ['.htaccess', 'config/api.php']);
 
 // Writable dirs by web server
-//set('writable_dirs', ['public/uploads', '/logs']);
+set('writable_dirs', ['public/uploads', '/logs']);
 
-// Files and dirs to persist
-set('shared_files', ['.htaccess', 'config/api.php']);
-set('shared_dirs', ['public/uploads']);
+
 
 
 // Composer
@@ -66,13 +65,13 @@ set('composer_options', function() {
 // Hosts
 
 host('dev')
-    ->set('application', 'dev.llad.ch')
+    ->set('application', 'llad.ch')
     ->hostName('v000246.fhnw.ch')
-    //->configFile('~/.ssh/config')
-    ->set('deploy_path', '/var/www/html/{{application}}')
+    ->set('deploy_path', '/var/www/html/dev-llad.ch')
     ->set('branch', 'llad')
     ->user('root')
     ->port(22)
+    ->configFile('~/.ssh/config')
     ->identityFile('~/.ssh/id_rsa', '~/.ssh/deploy_rsa')
     ->forwardAgent(true)
     ->multiplexing(true)
@@ -81,7 +80,7 @@ host('dev')
 
 // Tasks
 
-desc('Deploying {{application}}');
+desc('Deploying');
 task('deploy', [
     'deploy:info',
     'deploy:prepare',
@@ -94,7 +93,7 @@ task('deploy', [
     'deploy:clear_paths',
     'deploy:symlink',
     'deploy:unlock',
-    'deploy:directus',
+    //'deploy:directus',
     'cleanup',
     'success'
 ]);
