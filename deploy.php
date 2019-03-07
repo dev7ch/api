@@ -1,8 +1,6 @@
 <?php
 namespace Deployer;
 
-use function GuzzleHttp\Promise\task;
-
 require 'recipe/common.php';
 
 // Project name
@@ -18,7 +16,7 @@ set('keep_releases', 10);
 set('shared_dirs', []);
 
 // Writable dirs by web server
-set('writable_dirs', ['public/uploads', '/logs']);
+//set('writable_dirs', ['public/uploads', '/logs']);
 
 // Files and dirs to persist
 set('shared_files', ['.htaccess', 'config/api.php']);
@@ -69,8 +67,9 @@ set('composer_options', function() {
 
 host('dev')
     ->set('application', 'dev.llad.ch')
-    ->configFile('~/.ssh/config')
-    ->set('deploy_path', '/var/www/html/{{application}}')
+    ->hostName('v000246.fhnw.ch')
+    //->configFile('~/.ssh/config')
+    ->set('deploy_path', '/var/www/html/dev.llad.ch}')
     ->set('branch', 'llad')
     ->user('root')
     ->port(22)
@@ -94,8 +93,8 @@ task('deploy', [
     'deploy:vendors',
     'deploy:clear_paths',
     'deploy:symlink',
-    'deploy:directus',
     'deploy:unlock',
+    'deploy:directus',
     'cleanup',
     'success'
 ]);
@@ -107,9 +106,8 @@ task('deploy', [
 
 
 task('deploy:directus', function() {
-    // make dirs writable
-    run('chown -R www-data:www-data /var/www/html/{{application}}/current');
-});
+    run('sudo chown -R www-data:www-data /var/www/html/{{application}}');
+})->desc('Deploy Directus');
 
 /**
  * Task: cleanup:deployefile
