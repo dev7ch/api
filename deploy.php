@@ -7,7 +7,7 @@ require 'recipe/common.php';
 set('application', 'llad.ch'); // overwriting it at hosts
 
 // Project repository
-set('repository', 'git@github.com:dev7ch/api.git');
+set('repository', 'git@gitlab.fhnw.ch:hgk-dima/directus-api.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
@@ -17,14 +17,13 @@ set('shared_dirs', []);
 
 // Writable dirs by web server
 set('writable_dirs', []);
-set('shared_files', ['.htaccess', 'config/api.php']);
+//set('shared_files', ['.htaccess', 'config/api.php']);
 
 
 // Composer
 
 /**
  * Set custom composer bin
- * @todo check error   [Error] Class 'Dotenv\Environment\DotenvFactory' not found
  */
 
 set('bin/composer', function () {
@@ -64,24 +63,24 @@ set('composer_options', function() {
 // Hosts
 
 host('dev')
-    ->set('application', 'dev-llad.ch')
+    ->set('application', 'dev.llad.ch')
     ->hostname('v000246.fhnw.ch')
-    ->set('deploy_path', '/var/www/html/dev.llad.ch')
-    ->set('branch', 'llad')
+    ->set('deploy_path', '/var/www/html/{{application}}')
+    //->set('branch', 'llad')
     // ->set('rsync_src', __DIR__ . '/dist')
-    // ->set('rsync_dest','{{release_path}}')
+    //->set('rsync_dest','{{release_path}}')
     ->user('root')
     ->port(22)
-    //->configFile('~/.ssh/config')
+    ->configFile('~/.ssh/config')
     ->identityFile('~/.ssh/id_rsa')
     ->forwardAgent(true)
-    //->multiplexing(true)
+    ->multiplexing(true)
     ->addSshOption('UserKnownHostsFile', '/dev/null')
     ->addSshOption('StrictHostKeyChecking', 'no');
 
 // Tasks
 
-desc('Deploying {{application}} ');
+desc('Deploying ...');
 task('deploy', [
     'deploy:info',
     'deploy:prepare',
