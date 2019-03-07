@@ -5,7 +5,9 @@
 </p>
 
 <p>&nbsp;</p>
+
 > Mirrored into `git@gitlab.fhnw.ch:hgk-dima/directus-api.git`
+
 <p>&nbsp;</p>
 
 <h1 align="left">
