@@ -24,27 +24,29 @@ set('shared_files', ['.htaccess', 'config/api.php']);
 
 /**
  * Set custom composer bin
+ * @todo check error   [Error] Class 'Dotenv\Environment\DotenvFactory' not found
  */
-env('bin/composer', function () {
-    if (commandExist('composer')) {
-        $composer = run('which composer')->toString();
 
-        if (isVerbose()) {
-            writeln("Use global installed composer: " . $composer);
-        }
-    }
-    if (empty($composer)) {
-        run("cd {{release_path}} && curl -sS https://getcomposer.org/installer | {{bin/php}}");
-        $composer = '{{bin/php}} {{release_path}}/composer.phar';
-    }
-
-    if (isVerbose()) {
-        $version = run("cd {{release_path}} && ".$composer." -V");
-        writeln("Composer version: " . $version);
-    }
-
-    return $composer;
-});
+//env('bin/composer', function () {
+//    if (commandExist('composer')) {
+//        $composer = run('which composer')->toString();
+//
+//        if (isVerbose()) {
+//            writeln("Use global installed composer: " . $composer);
+//        }
+//    }
+//    if (empty($composer)) {
+//        run("cd {{release_path}} && curl -sS https://getcomposer.org/installer | {{bin/php}}");
+//        $composer = '{{bin/php}} {{release_path}}/composer.phar';
+//    }
+//
+//    if (isVerbose()) {
+//        $version = run("cd {{release_path}} && ".$composer." -V");
+//        writeln("Composer version: " . $version);
+//    }
+//
+//    return $composer;
+//});
 
 
 /**
