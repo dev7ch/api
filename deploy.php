@@ -7,7 +7,7 @@ require 'recipe/common.php';
 set('application', 'llad.ch'); // overwriting it at hosts
 
 // Project repository
-set('repository', 'git@gitlab.fhnw.ch:hgk-dima/directus-api.git');
+set('repository', 'git@github.com:dev7ch/api.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
@@ -66,16 +66,16 @@ set('composer_options', function() {
 host('dev')
     ->set('application', 'dev-llad.ch')
     ->hostname('v000246.fhnw.ch')
-    ->set('deploy_path', '/var/www/html/dev-llad.ch')
+    ->set('deploy_path', '/var/www/html/dev.llad.ch')
+    ->set('branch', 'llad')
     // ->set('rsync_src', __DIR__ . '/dist')
     // ->set('rsync_dest','{{release_path}}')
     ->user('root')
     ->port(22)
-    ->set('branch', 'llad')
     //->configFile('~/.ssh/config')
     ->identityFile('~/.ssh/id_rsa')
     ->forwardAgent(true)
-    ->multiplexing(true)
+    //->multiplexing(true)
     ->addSshOption('UserKnownHostsFile', '/dev/null')
     ->addSshOption('StrictHostKeyChecking', 'no');
 
@@ -123,7 +123,7 @@ task('cleanup:deployfile', function () {
 /**
  * Set deployfile cleanup
  */
-after('cleanup', 'cleanup:deployfile');
+//after('cleanup', 'cleanup:deployfile');
 
 
 // [Optional] If deploy fails automatically unlock.
