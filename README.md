@@ -14,7 +14,7 @@
   The All-New Directus 7<br>Future-Proof Headless CMS
 </h1>
 
-<h3 align="center">
+<h3 align="left">
   <a href="https://directus.io">Website</a> • 
   <a href="https://docs.directus.io">Docs</a> • 
   <a href="https://docs.directus.io/api/reference.html">API Reference</a> • 
