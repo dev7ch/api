@@ -28,7 +28,7 @@ set('writable_dirs', []);
 
 set('bin/composer', function () {
     if (commandExist('composer')) {
-        $composer = run('which composer')->toString();
+        $composer = run('which composer');
 
         if (isVerbose()) {
             writeln("Use global installed composer: " . $composer);
