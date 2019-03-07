@@ -64,14 +64,11 @@ set('composer_options', function() {
 
 host('dev')
     ->set('application', 'dev.llad.ch')
-    ->hostname('v000246.fhnw.ch')
+    ->configFile('~/.ssh/config')
     ->set('deploy_path', '/var/www/html/{{application}}')
     ->set('branch', 'llad')
-    // ->set('rsync_src', __DIR__ . '/dist')
-    //->set('rsync_dest','{{release_path}}')
     ->user('root')
     ->port(22)
-    ->configFile('~/.ssh/config')
     ->identityFile('~/.ssh/id_rsa', '~/.ssh/deploy_rsa')
     ->forwardAgent(true)
     ->multiplexing(true)
@@ -122,7 +119,7 @@ task('cleanup:deployfile', function () {
 /**
  * Set deployfile cleanup
  */
-//after('cleanup', 'cleanup:deployfile');
+after('cleanup', 'cleanup:deployfile');
 
 
 // [Optional] If deploy fails automatically unlock.
