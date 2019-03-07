@@ -7,7 +7,7 @@ require 'recipe/common.php';
 set('application', 'llad.ch'); // overwriting it at hosts
 
 // Project repository
-set('repository', 'git@gitlab.fhnw.ch:hgk-dima/directus-api.git');
+set('repository', 'git@github.com:dev7ch/api.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
@@ -66,13 +66,13 @@ host('dev')
     ->set('application', 'dev.llad.ch')
     ->hostname('v000246.fhnw.ch')
     ->set('deploy_path', '/var/www/html/{{application}}')
-    //->set('branch', 'llad')
+    ->set('branch', 'llad')
     // ->set('rsync_src', __DIR__ . '/dist')
     //->set('rsync_dest','{{release_path}}')
     ->user('root')
     ->port(22)
     ->configFile('~/.ssh/config')
-    ->identityFile('~/.ssh/id_rsa')
+    ->identityFile('~/.ssh/deploy_rsa', '/root/.ssh/deploy_rsa')
     ->forwardAgent(true)
     ->multiplexing(true)
     ->addSshOption('UserKnownHostsFile', '/dev/null')
