@@ -2,7 +2,8 @@
 namespace Deployer;
 
 // @todo https://github.com/deployphp/deployer/issues/1371
-ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . 'vendor/deployer/recipes');
+// Would be need to e.g. require 'recipe/common.php';
+// ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . 'vendor/deployer/recipes');
 
 require 'recipe/common.php';
 
@@ -112,12 +113,13 @@ task('deploy:directus', function() {
 
 /**
  * Directus build extensions
+ * node and yarn needs to be executable on destination host
  */
 
 task('deploy:extensions', function() {
     run('cd {{release_path}}/extensions && yarn install');
     run('cd {{release_path}}/extensions && yarn build');
-})->desc('Building Directus extenstions');
+})->desc('Building Directus Extenstions');
 
 
 
@@ -128,15 +130,21 @@ task('deploy:extensions', function() {
  */
 task('cleanup:deployfile', function () {
     $keepDeployer = (has('keepDeployer')) ? get('keepDeployer') : false;
+
     // as the deployer file can contain sensitive data about other webserver.
     if (!$keepDeployer) {
         run('rm -f {{release_path}}/deploy.php');
     }
+    // remove build vendors and node scripts
+    run('rm -rf {{release_path}}/extensions');
+
     // remove git ignore files in readable and none readable dirs
     run('rm -rf {{release_path}}/.git');
     run('rm -f {{release_path}}/.gitignore');
+
     // sometimes the readme contains data about loggin informations or other privacy content.
     run('rm -f {{release_path}}/README.md');
+
     // the lock and json file can contain github tokens when working with private composer repos.
     run('rm -f {{release_path}}/composer.lock');
     run('rm -f {{release_path}}/composer.json');
