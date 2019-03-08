@@ -1,7 +1,11 @@
 <?php
 namespace Deployer;
 
+// @todo https://github.com/deployphp/deployer/issues/1371
+ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . 'vendor/deployer/recipes');
+
 require 'recipe/common.php';
+require 'recipe/yarn.php';
 
 // Project name
 set('application', 'llad.ch'); // overwriting it at hosts
@@ -91,6 +95,7 @@ task('deploy', [
     'deploy:shared',
     'deploy:writable',
     'deploy:directus',
+    'deploy:extensions',
     'cleanup',
     'success'
 ]);
@@ -100,12 +105,22 @@ task('deploy', [
  * Directus settings and commands
  */
 
-
 task('deploy:directus', function() {
     run('sudo chown -R www-data:www-data {{release_path}}');
     run('cd {{release_path}} && php ./bin/directus install:database');
     run('cd {{release_path}} && php ./bin/directus install:install -e admin@exmaple.com -p password -t {{application}}');
 })->desc('Deploy Directus');
+
+/**
+ * Directus build extensions
+ */
+
+task('deploy:extensions', function() {
+    run('cd {{release_path}}/extensions && yarn install');
+    run('cd {{release_path}}/extensions && yarn build');
+})->desc('Building Directus extenstions');
+
+
 
 /**
  * Task: cleanup:deployefile
