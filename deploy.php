@@ -14,13 +14,10 @@ set('git_tty', true);
 set('keep_releases', 10);
 // Shared files/dirs between deploys
 set('shared_dirs', []);
-set('shared_files', ['.htaccess', 'config/api.php']);
+set('shared_files', ['public/.htaccess', 'config/api.php']);
 
 // Writable dirs by web server
 set('writable_dirs', ['public/uploads', '/logs']);
-
-
-
 
 // Composer
 
@@ -65,13 +62,13 @@ set('composer_options', function() {
 // Hosts
 
 host('dev')
-    ->set('application', 'llad.ch')
+    ->set('application', 'dev.llad.ch')
     ->hostName('v000246.fhnw.ch')
-    ->set('deploy_path', '/var/www/html/dev-llad.ch')
+    //->configFile('~/.ssh/config')
     ->set('branch', 'llad')
     ->user('root')
     ->port(22)
-    ->configFile('~/.ssh/config')
+    ->set('deploy_path', '/var/www/html/{{application}}')
     ->identityFile('~/.ssh/id_rsa', '~/.ssh/deploy_rsa')
     ->forwardAgent(true)
     ->multiplexing(true)
@@ -86,14 +83,14 @@ task('deploy', [
     'deploy:prepare',
     'deploy:lock',
     'deploy:release',
-    'deploy:shared',
-    'deploy:writable',
     'deploy:update_code',
     'deploy:vendors',
     'deploy:clear_paths',
     'deploy:symlink',
     'deploy:unlock',
-    //'deploy:directus',
+    'deploy:shared',
+    'deploy:writable',
+    'deploy:directus',
     'cleanup',
     'success'
 ]);
@@ -106,6 +103,7 @@ task('deploy', [
 
 task('deploy:directus', function() {
     run('sudo chown -R www-data:www-data /var/www/html/{{application}}');
+    run('./bin/directus install:install -e admin@exmaple.com -p password -t {{application}}');
 })->desc('Deploy Directus');
 
 /**
