@@ -102,9 +102,9 @@ task('deploy', [
 
 
 task('deploy:directus', function() {
-    run('sudo chown -R www-data:www-data /var/www/html/{{application}}/current');
-    run('cd /var/www/html/{{application}}/current && php ./bin/directus install:database');
-    run('/var/www/html/{{application}}/current && php ./bin/directus install:install -e admin@exmaple.com -p password -t {{application}}');
+    run('sudo chown -R www-data:www-data {{release_path}}');
+    run('cd {{release_path}} && php ./bin/directus install:database');
+    run('cd {{release_path}} && php ./bin/directus install:install -e admin@exmaple.com -p password -t {{application}}');
 })->desc('Deploy Directus');
 
 /**
