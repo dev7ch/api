@@ -5,7 +5,6 @@ namespace Deployer;
 ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . 'vendor/deployer/recipes');
 
 require 'recipe/common.php';
-require 'recipe/yarn.php';
 
 // Project name
 set('application', 'llad.ch'); // overwriting it at hosts
