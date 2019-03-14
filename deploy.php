@@ -17,8 +17,8 @@ set('repository', 'git@gitlab.fhnw.ch:hgk-dima/directus-api.git');
 set('git_tty', true);
 set('keep_releases', 10);
 // Shared files/dirs between deploys
-set('shared_dirs', ['']);
-set('shared_files', ['public/.htaccess', 'config/api.php']);
+set('shared_dirs', []);
+set('shared_files', ['public/.htaccess', 'config/api.php', 'config/api.llad.php']);
 
 // Writable dirs by web server
 set('writable_dirs', ['public/uploads', '/logs']);
