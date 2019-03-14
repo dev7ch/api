@@ -16,6 +16,7 @@ set('repository', 'git@gitlab.fhnw.ch:hgk-dima/directus-api.git');
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
 set('keep_releases', 10);
+
 // Shared files/dirs between deploys
 set('shared_dirs', []);
 set('shared_files', ['public/.htaccess', 'config/api.php', 'config/api.llad.php']);
