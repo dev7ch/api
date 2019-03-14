@@ -17,7 +17,7 @@ set('repository', 'git@gitlab.fhnw.ch:hgk-dima/directus-api.git');
 set('git_tty', true);
 set('keep_releases', 10);
 // Shared files/dirs between deploys
-set('shared_dirs', []);
+set('shared_dirs', ['']);
 set('shared_files', ['public/.htaccess', 'config/api.php']);
 
 // Writable dirs by web server
@@ -66,10 +66,26 @@ set('composer_options', function() {
 // Hosts
 
 host('dev')
-    ->set('application', 'dev.llad.ch')
+    ->set('application', 'dev.api')
     ->hostName('v000246.fhnw.ch')
     //->configFile('~/.ssh/config')
     ->set('branch', 'llad')
+    ->user('root')
+    ->port(22)
+    ->set('deploy_path', '/var/www/html/{{application}}')
+    ->identityFile('~/.ssh/id_rsa', '~/.ssh/deploy_rsa')
+    ->forwardAgent(true)
+    ->multiplexing(true)
+    ->addSshOption('UserKnownHostsFile', '/dev/null')
+    ->addSshOption('StrictHostKeyChecking', 'no');
+
+// Hosts
+
+host('prod')
+    ->set('application', 'api')
+    ->hostName('v000246.fhnw.ch')
+    //->configFile('~/.ssh/config')
+    ->set('branch', 'dev')
     ->user('root')
     ->port(22)
     ->set('deploy_path', '/var/www/html/{{application}}')
