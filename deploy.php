@@ -66,7 +66,7 @@ set('composer_options', function() {
 // Hosts
 
 host('dev')
-    ->set('application', 'dev.api')
+    ->set('application', 'api.dev')
     ->hostName('v000246.fhnw.ch')
     //->configFile('~/.ssh/config')
     ->set('branch', 'llad')
@@ -85,7 +85,7 @@ host('prod')
     ->set('application', 'api')
     ->hostName('v000246.fhnw.ch')
     //->configFile('~/.ssh/config')
-    ->set('branch', 'dev')
+    ->set('branch', 'llad')
     ->user('root')
     ->port(22)
     ->set('deploy_path', '/var/www/html/{{application}}')
