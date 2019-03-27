@@ -43,8 +43,7 @@
   "require-dev": {
     "deployer/dist": "^6.4",
     "deployer/recipes": "^6.2",
-    "phpunit/phpunit": "^5.7.25",
-    "ext-tokenizer": "*"
+    "phpunit/phpunit": "^5.7.25"
   },
   "suggest": {
     "paragonie/random_compat": "Generates cryptographically more secure pseudo-random bytes",
