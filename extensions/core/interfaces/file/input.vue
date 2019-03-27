@@ -4,7 +4,7 @@
       v-if="value"
       class="card"
       :title="value.title"
-      :subtitle="subtitle"
+      :subtitle="subtitle + subtitleExtra"
       :src="src"
       :icon="icon"
       :href="href"
@@ -36,7 +36,11 @@
     <portal to="modal" v-if="newFile">
       <v-modal :title="$t('file_upload')" @close="newFile = false">
         <div class="body">
-          <v-upload @upload="saveUpload" :accept="options.accept" :multiple="false"></v-upload>
+          <v-upload
+            @upload="saveUpload"
+            :accept="options.accept"
+            :multiple="false"
+          ></v-upload>
         </div>
       </v-modal>
     </portal>
@@ -58,7 +62,8 @@
             type="search"
             :placeholder="$t('search')"
             class="search-input"
-            @input="onSearchInput" />
+            @input="onSearchInput"
+          />
         </div>
         <v-items
           class="items"
@@ -79,6 +84,7 @@
 
 <script>
 import mixin from "../../../mixins/interface";
+import formatSize from "../file-size/format-size";
 import getIcon from "./get-icon";
 
 export default {
@@ -103,6 +109,18 @@ export default {
         " • " +
         this.$d(new Date(this.value.uploaded_on), "short")
       );
+    },
+    subtitleExtra() {
+      // Image ? -> display dimensions and formatted filesize
+      return this.value.type && this.value.type.startsWith("image")
+        ? " • " +
+            this.value.width +
+            " x " +
+            this.value.height +
+            " (" +
+            formatSize(this.value.filesize) +
+            ")"
+        : null;
     },
     src() {
       return this.value.type && this.value.type.startsWith("image")
@@ -217,7 +235,7 @@ button {
 
 .search-input {
   border-bottom: 1px solid var(--lightest-gray);
-  &>>> input {
+  & >>> input {
     border-radius: 0;
     border: none;
     padding-left: var(--page-padding);
