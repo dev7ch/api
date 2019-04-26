@@ -53,28 +53,17 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.json" }}
           paths:
           - ./vendor
-      - restore_cache:
-          keys:
-          - node-v1-{{ checksum "package.json" }}
-          - node-v1-
-      - run:
-          name: Install Extensions and Build them ...
-          command: cd extensions/ && yarn install && yarn build && cd ..
-      - save_cache:
-          key: node-v1-{{ checksum "package.json" }}
-          paths:
-          - node_modules
 
       # prepare the database
 
       - run: cp phpunit.xml.dist phpunit.xml
       - run:
           name: Wait for DB
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+          command: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
       - run: mysql -uroot -e "create database directus_test;"
       - run: mysql -uroot directus_test < tests/db.sql
       - run: composer install
-      - run: bin/directus install:config -h "127.0.0.1" -P 3306 -n "directus_test" -u "root" -p "" -e "admin@example.com"
+      - run: bin/directus install:config -h "127.0.0.1" -P 5432 -n "directus_test" -u "root" -p "" -e "admin@example.com"
       - run: bin/directus install:database
       - run: bin/directus install:install -e "admin@example.com" -p "password" -t "directus_test" -T "TOKEN"
 
