@@ -1,7 +1,7 @@
 {
   "name": "@directus/api",
   "private": true,
-  "version": "2.0.18",
+  "version": "2.0.22",
   "description": "Directus API",
   "main": "index.js",
   "repository": "directus/api",
@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/directus/api#readme",
   "devDependencies": {
-    "vuepress": "^0.7.1"
-  },
-  "start": { "postinstall": "cd extensions && yarn install && yarn build" }
+    "vuepress": "^0.14.10"
+  }
 }

@@ -816,6 +816,11 @@ class RelationalTableGateway extends BaseTableGateway
     {
         ArrayUtils::remove($params, 'id');
 
+        // Check if single param is set then convert it into boolean
+        if (ArrayUtils::get($params, 'single')) {
+            $params['single'] = json_decode(strtolower(ArrayUtils::get($params, 'single')));
+        }
+
         return $this->fetchData($params);
     }
 
@@ -1109,7 +1114,7 @@ class RelationalTableGateway extends BaseTableGateway
             $results = array_values($results);
         }
 
-        if (ArrayUtils::has($params, 'single')) {
+        if (ArrayUtils::get($params, 'single')) {
             $results = reset($results);
         }
 
@@ -1130,7 +1135,7 @@ class RelationalTableGateway extends BaseTableGateway
         $single = ArrayUtils::get($params, 'single');
         $idsCount = is_array($id) ? count($id) : 1;
 
-        if (!$single && $id && $idsCount == 1) {
+        if (!$single && $id !== null && $idsCount == 1) {
             $single = $params['single'] = true;
         }
 
@@ -1633,7 +1638,8 @@ class RelationalTableGateway extends BaseTableGateway
                 $entriesIds = [$entriesIds];
             }
 
-            $query->whereIn($this->primaryKeyFieldName, $entriesIds);
+            //$query->whereIn($this->primaryKeyFieldName, $entriesIds);
+            $query->whereIn(new Expression('CAST('.$this->primaryKeyFieldName.' as CHAR)'), $entriesIds);
         }
 
         if (!ArrayUtils::has($params, 'q')) {
@@ -1750,7 +1756,7 @@ class RelationalTableGateway extends BaseTableGateway
                 // $row->getId(); RowGateway perhaps?
                 $relationalColumnId = $row[$relationalColumnName];
                 if (is_array($relationalColumnId) && !empty($relationalColumnId)) {
-                    $relationalColumnId = $relationalColumnId[$tableGateway->primaryKeyFieldName];
+                    $relationalColumnId = $relationalColumnId[$primaryKey];
                 }
 
                 if ($filterFields && !in_array('*', $filterFields)) {
@@ -1887,7 +1893,8 @@ class RelationalTableGateway extends BaseTableGateway
             foreach ($entries as &$parentRow) {
                 if (array_key_exists($relationalColumnName, $parentRow)) {
                     // @NOTE: Not always will be a integer
-                    $foreign_id = (int)$parentRow[$relationalColumnName];
+                    // @NOTE: But what about UUIDS and slugs?
+                    $foreign_id = (string)$parentRow[$relationalColumnName];
                     $parentRow[$relationalColumnName] = null;
                     // "Did we retrieve the foreign row with this foreign ID in our recent query of the foreign table"?
                     if (array_key_exists($foreign_id, $relatedEntries)) {
