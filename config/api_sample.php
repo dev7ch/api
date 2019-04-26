@@ -13,14 +13,14 @@ return [
     ],
 
     'database' => [
-        'type' => 'mysql',
+        'type' => 'pgsql',
         'host' => 'localhost',
-        'port' => 3306,
+        'port' => 5432,
         'name' => 'directus',
         'username' => 'root',
         'password' => 'root',
-        'engine' => 'InnoDB',
-        'charset' => 'utf8mb4',
+        //'engine' => 'InnoDB',
+        'charset' => 'utf8',
         // When using unix socket to connect to the database the host attribute should be removed
         // 'socket' => '/var/lib/mysql/mysql.sock',
         'socket' => '',
