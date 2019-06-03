@@ -18,7 +18,7 @@ return [
         'port' => 3306,
         'name' => 'directus',
         'username' => 'root',
-        'password' => 'root',
+        'password' => '',
         'engine' => 'InnoDB',
         'charset' => 'utf8mb4',
         // When using unix socket to connect to the database the host attribute should be removed
