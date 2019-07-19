@@ -17,7 +17,7 @@ date_default_timezone_set('America/New_York');
  */
 function create_mock($testCase, $className, array $methods = null, array $arguments = null)
 {
-    $builder = new PHPUnit_Framework_MockObject_MockBuilder($testCase, $className);
+    $builder = new \PHPUnit\Framework\MockObject\MockBuilder($testCase, $className);
 
     if (is_array($methods) && count($methods) > 0) {
         $builder->setMethods($methods);
@@ -38,7 +38,7 @@ function create_mock($testCase, $className, array $methods = null, array $argume
  * @param \PHPUnit\Framework\TestCase $testCase
  * @param $attributes - mock attributes
  *
- * @return \Zend\Db\Adapter\Adapter
+ * @return PHPUnit_Framework_MockObject_MockObject
  */
 function get_mock_adapter($testCase, $attributes = [])
 {
@@ -52,7 +52,8 @@ function get_mock_adapter($testCase, $attributes = [])
     $mockAdapter->expects($testCase->any())->method('getCurrentSchema')->will($testCase->returnValue('directus'));
     $mockAdapter->expects($testCase->any())->method('getPlatform')->will($testCase->returnValue(get_mock_platform($testCase)));
 
-    return $mockAdapter;
+  /** @var TYPE_NAME $mockAdapter */
+  return $mockAdapter;
 }
 
 /**
