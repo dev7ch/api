@@ -9,8 +9,9 @@ use Directus\Database\Schema\DataTypes;
 use Directus\Exception\UnprocessableEntityException;
 use Directus\Util\ArrayUtils;
 use Directus\Util\DateTimeUtils;
+use PHPUnit\Framework\TestCase;
 
-class FieldsTest extends \PHPUnit_Framework_TestCase
+class FieldsTest extends TestCase
 {
     protected $queryParams = [
         'access_token' => 'token'

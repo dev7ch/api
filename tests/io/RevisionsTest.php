@@ -3,8 +3,9 @@
 namespace Directus\Tests\Api\Io;
 
 use Directus\Database\Connection;
+use PHPUnit\Framework\TestCase;
 
-class RevisionsTest extends \PHPUnit_Framework_TestCase
+class RevisionsTest extends TestCase
 {
     /**
      * @var Connection

@@ -1,8 +1,9 @@
 <?php
 
 namespace Directus\Tests\Api\Io;
+use PHPUnit\Framework\TestCase;
 
-class GeneralTest extends \PHPUnit_Framework_TestCase
+class GeneralTest extends TestCase
 {
     public function testPing()
     {

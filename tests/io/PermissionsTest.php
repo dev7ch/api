@@ -8,8 +8,9 @@ use Directus\Permissions\Exception\ForbiddenCollectionCreateException;
 use Directus\Permissions\Exception\ForbiddenCollectionDeleteException;
 use Directus\Permissions\Exception\ForbiddenCollectionReadException;
 use Directus\Permissions\Exception\ForbiddenCollectionUpdateException;
+use PHPUnit\Framework\TestCase;
 
-class PermissionsTest extends \PHPUnit_Framework_TestCase
+class PermissionsTest extends TestCase
 {
     protected $queryParams = [
         'access_token' => 'token'

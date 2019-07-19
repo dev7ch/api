@@ -4,8 +4,9 @@ namespace Directus\Tests\Api\Io;
 
 use Directus\Hash\Exception\HasherNotFoundException;
 use Directus\Validator\Exception\InvalidRequestException;
+use PHPUnit\Framework\TestCase;
 
-class UtilsTest extends \PHPUnit_Framework_TestCase
+class UtilsTest extends TestCase
 {
     protected $availableHashers = [
         'bcrypt',

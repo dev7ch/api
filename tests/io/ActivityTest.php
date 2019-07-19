@@ -6,8 +6,9 @@ use Directus\Database\Connection;
 use Directus\Database\Exception\ItemNotFoundException;
 use Directus\Database\TableGateway\DirectusActivityTableGateway;
 use GuzzleHttp\Exception\RequestException;
+use PHPUnit\Framework\TestCase;
 
-class ActivityTest extends \PHPUnit_Framework_TestCase
+class ActivityTest extends TestCase
 {
     /**
      * @var Connection

@@ -6,8 +6,9 @@ use Directus\Database\Exception\ForbiddenSystemTableDirectAccessException;
 use Directus\Database\Exception\ItemNotFoundException;
 use Directus\Permissions\Acl;
 use Directus\Util\ArrayUtils;
+use PHPUnit\Framework\TestCase;
 
-class ItemsTest extends \PHPUnit_Framework_TestCase
+class ItemsTest extends TestCase
 {
     protected $systemTables = [
         'directus_activity',

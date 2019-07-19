@@ -4,8 +4,9 @@ namespace Directus\Tests\Api\Io;
 
 use Directus\Database\Exception\ItemNotFoundException;
 use Directus\Database\TableGateway\DirectusUsersTableGateway;
+use PHPUnit\Framework\TestCase;
 
-class UsersTest extends \PHPUnit_Framework_TestCase
+class UsersTest extends TestCase
 {
     public static function resetDatabase()
     {

@@ -5,8 +5,9 @@ namespace Directus\Tests\Api\Io;
 use Directus\Database\Exception\CollectionNotFoundException;
 use Directus\Database\Exception\CollectionNotManagedException;
 use Directus\Util\ArrayUtils;
+use PHPUnit\Framework\TestCase;
 
-class CollectionsTest extends \PHPUnit_Framework_TestCase
+class CollectionsTest extends TestCase
 {
     protected $queryParams = [
         'access_token' => 'token'

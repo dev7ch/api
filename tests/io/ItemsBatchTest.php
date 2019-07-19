@@ -3,8 +3,9 @@
 namespace Directus\Tests\Api\Io;
 
 use Directus\Util\ArrayUtils;
+use PHPUnit\Framework\TestCase;
 
-class ItemsBatchTest extends \PHPUnit_Framework_TestCase
+class ItemsBatchTest extends TestCase
 {
     protected static $data = [
         ['status' => 2, 'name' => 'Old Product', 'price' => 4.99, 'category_id' => 1],

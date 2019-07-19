@@ -1,8 +1,9 @@
 <?php
 
 namespace Directus\Tests\Api\Io;
+use PHPUnit\Framework\TestCase;
 
-class CollectionPresetsTest extends \PHPUnit_Framework_TestCase
+class CollectionPresetsTest extends TestCase
 {
     /**
      * @var array

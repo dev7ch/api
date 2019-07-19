@@ -9,8 +9,9 @@ use Directus\Authentication\Exception\InvalidUserCredentialsException;
 use Directus\Authentication\Exception\UserInactiveException;
 use Directus\Util\JWTUtils;
 use Directus\Validator\Exception\InvalidRequestException;
+use PHPUnit\Framework\TestCase;
 
-class AuthenticationTest extends \PHPUnit_Framework_TestCase
+class AuthenticationTest extends TestCase
 {
     public function testGetToken()
     {

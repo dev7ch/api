@@ -3,9 +3,10 @@
 namespace Directus\Tests\Api\Io;
 
 use Directus\Database\Connection;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
-class ActivityCommentTest extends \PHPUnit_Framework_TestCase
+class ActivityCommentTest extends TestCase
 {
     /**
      * @var Connection
